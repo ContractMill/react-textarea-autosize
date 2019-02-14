@@ -4,7 +4,10 @@
 
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import calculateNodeHeight, { purgeCache } from './calculateNodeHeight';
+import calculateNodeHeight, {
+  purgeCache,
+  cleanUpAfterLastElement,
+} from './calculateNodeHeight';
 
 const noop = () => {};
 
@@ -101,6 +104,7 @@ export default class TextareaAutosize extends React.Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this._resizeListener);
     purgeCache(this._uid);
+    cleanUpAfterLastElement();
   }
 
   _onRef = node => {

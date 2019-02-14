@@ -181,3 +181,14 @@ function calculateNodeStyling(node, uid, useCache = false) {
 export const purgeCache = uid => {
   delete computedStyleCache[uid];
 };
+
+export const cleanUpAfterLastElement = () => {
+  // If all of the textareas have been unmounted, remove the hidden element.
+  if (
+    isBrowser &&
+    hiddenTextarea.parentNode !== null &&
+    Object.keys(computedStyleCache).length === 0
+  ) {
+    hiddenTextarea.parentNode.removeChild(hiddenTextarea);
+  }
+};
